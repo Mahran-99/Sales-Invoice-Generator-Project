@@ -1,7 +1,7 @@
 package com.model;
 
 public class InvoiceLine_Data {
-    private int number;
+
     private String item;
     private double price;
     private int count;
@@ -10,8 +10,7 @@ public class InvoiceLine_Data {
     public InvoiceLine_Data() {
     }
 
-    public InvoiceLine_Data(int number, String item, double price, int count, InvoiceHeader_Data invoice) {
-        this.number = number;
+    public InvoiceLine_Data( String item, double price, int count, InvoiceHeader_Data invoice) {
         this.item = item;
         this.price = price;
         this.count = count;
@@ -26,13 +25,11 @@ public class InvoiceLine_Data {
         this.count = count;
     }
 
-    public int getNumber() {
-        return number;
+    public InvoiceHeader_Data getInvoice() {
+        return invoice;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
+   
 
     public String getItem() {
         return item;
@@ -50,10 +47,13 @@ public class InvoiceLine_Data {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "InvoiceLine_Data{" + "number=" + number + ", item=" + item + ", price=" + price + ", count=" + count + '}';
+    public double getInvoiceLineTotal() {
+        return price * count;
     }
 
-   
+    @Override
+    public String toString() {
+        return "InvoiceLine_Data{" + "number=" + invoice.getNumber() + ", item=" + item + ", price=" + price + ", count=" + count + '}';
+    }
+
 }

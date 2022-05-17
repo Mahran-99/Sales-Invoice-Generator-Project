@@ -7,7 +7,10 @@ package com.view;
 
 import com.controller.Controller;
 import com.model.InvoiceHeader_Data;
+import com.model.InvoiceHeader_TableModel;
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 
 /**
  *
@@ -33,6 +36,7 @@ public class Invoice_Frame extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         invoiceTable = new javax.swing.JTable();
+        invoiceTable.getSelectionModel().addListSelectionListener(controller);
         createNewInvoiceButton = new javax.swing.JButton();
         createNewInvoiceButton.addActionListener(controller);
         deleteInvoiceButton = new javax.swing.JButton();
@@ -62,13 +66,10 @@ public class Invoice_Frame extends javax.swing.JFrame {
 
         invoiceTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(invoiceTable);
@@ -92,13 +93,10 @@ public class Invoice_Frame extends javax.swing.JFrame {
 
         lineTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane2.setViewportView(lineTable);
@@ -259,6 +257,7 @@ public class Invoice_Frame extends javax.swing.JFrame {
 
     private ArrayList<InvoiceHeader_Data> invoices;
     private Controller controller = new Controller(this);
+    private InvoiceHeader_TableModel invoicesTableModel;
 
     public ArrayList<InvoiceHeader_Data> getInvoices() {
         return invoices;
@@ -267,5 +266,41 @@ public class Invoice_Frame extends javax.swing.JFrame {
     public void setInvoices(ArrayList<InvoiceHeader_Data> invoices) {
         this.invoices = invoices;
     }
-    
+
+    public InvoiceHeader_TableModel getInvoicesTableModel() {
+        return invoicesTableModel;
+    }
+
+    public void setInvoicesTableModel(InvoiceHeader_TableModel invoicesTableModel) {
+        this.invoicesTableModel = invoicesTableModel;
+    }
+
+    public JLabel getCustomerNameValue() {
+        return customerNameValue;
+    }
+
+    public JLabel getInvoiceDateValue() {
+        return invoiceDateValue;
+    }
+
+    public JLabel getInvoiceNumberValue() {
+        return invoiceNumberValue;
+    }
+
+    public JTable getInvoiceTable() {
+        return invoiceTable;
+    }
+
+    public JLabel getInvoiceTotalValue() {
+        return invoiceTotalValue;
+    }
+
+    public JTable getLineTable() {
+        return lineTable;
+    }
+
+    public Controller getController() {
+        return controller;
+    }
+
 }

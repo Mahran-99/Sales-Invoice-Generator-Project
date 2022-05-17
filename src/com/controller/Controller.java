@@ -1,11 +1,15 @@
 package com.controller;
 
 import com.model.InvoiceHeader_Data;
+import com.model.InvoiceHeader_TableModel;
 import com.model.InvoiceLine_Data;
+import com.model.InvoiceLine_TableModel;
 import com.view.Invoice_Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,8 +17,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-public class Controller implements ActionListener {
+public class Controller implements ActionListener, ListSelectionListener {
 
     private Invoice_Frame frame;
 
@@ -50,6 +56,19 @@ public class Controller implements ActionListener {
                 deleteItem();
                 break;
         }
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        int selectedRow = frame.getInvoiceTable().getSelectedRow();
+        InvoiceHeader_Data currentInvoiceData = frame.getInvoices().get(selectedRow);
+        frame.getInvoiceNumberValue().setText("" + currentInvoiceData.getNumber());
+        frame.getInvoiceDateValue().setText(currentInvoiceData.getDate());
+        frame.getCustomerNameValue().setText(currentInvoiceData.getCustomerName());
+        frame.getInvoiceTotalValue().setText("" + currentInvoiceData.getInvoiceTotal());
+        InvoiceLine_TableModel lineTableModel = new InvoiceLine_TableModel(currentInvoiceData.getLines());
+        frame.getLineTable().setModel(lineTableModel);
+        lineTableModel.fireTableDataChanged();
     }
 
     private void loadFile() {
@@ -88,12 +107,16 @@ public class Controller implements ActionListener {
                                 break;
                             }
                         }
-                        InvoiceLine_Data line = new InvoiceLine_Data(num, item, price, count, inv);
+                        InvoiceLine_Data line = new InvoiceLine_Data(item, price, count, inv);
                         inv.getLines().add(line);
                     }
 
                 }
                 frame.setInvoices(invoices);
+                InvoiceHeader_TableModel invoicesTableModel = new InvoiceHeader_TableModel(invoices);
+                frame.setInvoicesTableModel(invoicesTableModel);
+                frame.getInvoiceTable().setModel(invoicesTableModel);
+                frame.getInvoicesTableModel().fireTableDataChanged();
             }
         } catch (IOException exception) {
             exception.printStackTrace();
@@ -102,23 +125,36 @@ public class Controller implements ActionListener {
     }
 
     private void saveFile() {
-       
+        JFileChooser fileChooser = new JFileChooser();
+        try {
+            int result = fileChooser.showSaveDialog(frame);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File invoiceHeaderFile = fileChooser.getSelectedFile();
+                FileWriter fileWriter = new FileWriter(invoiceHeaderFile);
+                BufferedWriter writer = new BufferedWriter(fileWriter);
+                String trial = "4,15-5-2022,omar";
+                writer.write(trial);
+            }
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
     }
 
     private void createNewInvoice() {
-        
+
     }
 
     private void deleteInvoice() {
-       
+
     }
 
     private void createNewItem() {
-        
+
     }
 
     private void deleteItem() {
-       
+
     }
 
 }

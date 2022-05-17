@@ -3,6 +3,7 @@ package com.model;
 import java.util.ArrayList;
 
 public class InvoiceHeader_Data {
+
     private int number;
     private String date;
     private String customerName;
@@ -42,17 +43,23 @@ public class InvoiceHeader_Data {
     }
 
     public ArrayList<InvoiceLine_Data> getLines() {
-        if(lines == null){
+        if (lines == null) {
             lines = new ArrayList<>();
         }
         return lines;
+    }
+
+    public double getInvoiceTotal() {
+        double total = 0.0;
+        for (InvoiceLine_Data line : getLines()) {
+            total += line.getInvoiceLineTotal();
+        }
+        return total;
     }
 
     @Override
     public String toString() {
         return "InvoiceHeader_Data{" + "number=" + number + ", date=" + date + ", customerName=" + customerName + '}';
     }
-
-   
 
 }
