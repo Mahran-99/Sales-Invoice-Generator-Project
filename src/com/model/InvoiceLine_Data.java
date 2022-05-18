@@ -29,8 +29,6 @@ public class InvoiceLine_Data {
         return invoice;
     }
 
-   
-
     public String getItem() {
         return item;
     }

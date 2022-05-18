@@ -5,7 +5,7 @@
  */
 package com.view;
 
-import com.controller.Controller;
+import com.controller.InvoiceController;
 import com.model.InvoiceHeader_Data;
 import com.model.InvoiceHeader_TableModel;
 import java.util.ArrayList;
@@ -256,7 +256,7 @@ public class Invoice_Frame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private ArrayList<InvoiceHeader_Data> invoices;
-    private Controller controller = new Controller(this);
+    private InvoiceController controller = new InvoiceController(this);
     private InvoiceHeader_TableModel invoicesTableModel;
 
     public ArrayList<InvoiceHeader_Data> getInvoices() {
@@ -299,8 +299,13 @@ public class Invoice_Frame extends javax.swing.JFrame {
         return lineTable;
     }
 
-    public Controller getController() {
+    public InvoiceController getController() {
         return controller;
+    }
+
+    public int getNextInvoiceNumber() {
+        int nextInvoiceNumber = invoices.size() + 1;
+        return nextInvoiceNumber;
     }
 
 }

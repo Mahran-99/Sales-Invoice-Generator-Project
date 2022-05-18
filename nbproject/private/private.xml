@@ -6,8 +6,10 @@
             <file>file:/F:/Software%20Testing%20Track/Sales-Invoice-Generator-Project/src/com/model/InvoiceHeader_TableModel.java</file>
             <file>file:/F:/Software%20Testing%20Track/Sales-Invoice-Generator-Project/src/com/model/InvoiceLine_Data.java</file>
             <file>file:/F:/Software%20Testing%20Track/Sales-Invoice-Generator-Project/src/com/view/Invoice_Frame.java</file>
+            <file>file:/F:/Software%20Testing%20Track/Sales-Invoice-Generator-Project/src/com/controller/InvoiceController.java</file>
             <file>file:/F:/Software%20Testing%20Track/Sales-Invoice-Generator-Project/src/com/model/InvoiceHeader_Data.java</file>
-            <file>file:/F:/Software%20Testing%20Track/Sales-Invoice-Generator-Project/src/com/controller/Controller.java</file>
+            <file>file:/F:/Software%20Testing%20Track/Sales-Invoice-Generator-Project/src/com/view/Invoice_Dialog.java</file>
+            <file>file:/F:/Software%20Testing%20Track/Sales-Invoice-Generator-Project/src/com/view/Line_Dialog.java</file>
             <file>file:/F:/Software%20Testing%20Track/Sales-Invoice-Generator-Project/src/com/model/InvoiceLine_TableModel.java</file>
         </group>
     </open-files>

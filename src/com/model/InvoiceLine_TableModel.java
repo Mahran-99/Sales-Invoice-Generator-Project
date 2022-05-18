@@ -12,6 +12,10 @@ public class InvoiceLine_TableModel extends AbstractTableModel {
         this.lineData = lineData;
     }
 
+    public ArrayList<InvoiceLine_Data> getLineData() {
+        return lineData;
+    }
+
     @Override
     public int getRowCount() {
         return lineData.size();
