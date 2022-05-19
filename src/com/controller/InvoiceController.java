@@ -196,6 +196,9 @@ public class InvoiceController implements ActionListener, ListSelectionListener 
         int row = frame.getInvoiceTable().getSelectedRow();
         if (row != -1) {
             frame.getInvoices().remove(row);
+            for(int i = 0;i<frame.getInvoices().size();i++){
+                frame.getInvoices().get(i).setNumber(i + 1);
+            }
             frame.getInvoicesTableModel().fireTableDataChanged();
         }
     }
@@ -249,6 +252,8 @@ public class InvoiceController implements ActionListener, ListSelectionListener 
             InvoiceLine_TableModel lineTableModel = (InvoiceLine_TableModel) frame.getLineTable().getModel();
             lineTableModel.fireTableDataChanged();
             frame.getInvoicesTableModel().fireTableDataChanged();
+            
+            frame.getInvoiceTotalValue().setText(""+invoice.getInvoiceTotal());
         }
 
         lineDialog.setVisible(false);
