@@ -148,14 +148,38 @@ public class InvoiceController implements ActionListener, ListSelectionListener 
 
     private void saveFile() {
         JFileChooser fileChooser = new JFileChooser();
+        ArrayList<InvoiceHeader_Data> saveInvoices = frame.getInvoices();
+        ArrayList<InvoiceLine_Data> saveLines = null;
         try {
             int result = fileChooser.showSaveDialog(frame);
             if (result == JFileChooser.APPROVE_OPTION) {
                 File invoiceHeaderFile = fileChooser.getSelectedFile();
-                FileWriter fileWriter = new FileWriter(invoiceHeaderFile);
-                BufferedWriter writer = new BufferedWriter(fileWriter);
-                String trial = "";
-                writer.write(trial);
+                FileWriter invoiceFileWriter = new FileWriter(invoiceHeaderFile);
+                for (InvoiceHeader_Data saveInvoice : saveInvoices) {
+                    String invoiceNumber = "" + saveInvoice.getNumber();
+                    String invoiceDate = saveInvoice.getDate();
+                    String customerName = saveInvoice.getCustomerName();
+                    invoiceFileWriter.write(invoiceNumber + "," + invoiceDate + "," + customerName + "\n");
+                    invoiceFileWriter.flush();
+                }
+                invoiceFileWriter.close();
+                result = fileChooser.showSaveDialog(frame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File invoiceLineFile = fileChooser.getSelectedFile();
+                    FileWriter lineFileWriter = new FileWriter(invoiceLineFile);
+                    for (InvoiceHeader_Data saveInvoice : saveInvoices) {
+                        saveLines = saveInvoice.getLines();
+                        for (InvoiceLine_Data saveLine : saveLines) {
+                            String invoiceNumber = "" + saveLine.getInvoice().getNumber();
+                            String itemName = saveLine.getItem();
+                            String itemPrice = "" + saveLine.getPrice();
+                            String count = "" + saveLine.getCount();
+                            lineFileWriter.write(invoiceNumber + "," + itemName + "," + itemPrice + "," + count + "\n");
+                            lineFileWriter.flush();
+                        }
+                    }
+                    lineFileWriter.close();
+                }
             }
         } catch (IOException exception) {
             exception.printStackTrace();
