@@ -144,6 +144,7 @@ public class InvoiceController implements ActionListener, ListSelectionListener 
             exception.printStackTrace();
         }
 
+        printOnConsole();
     }
 
     private void saveFile() {
@@ -196,7 +197,7 @@ public class InvoiceController implements ActionListener, ListSelectionListener 
         int row = frame.getInvoiceTable().getSelectedRow();
         if (row != -1) {
             frame.getInvoices().remove(row);
-            for(int i = 0;i<frame.getInvoices().size();i++){
+            for (int i = 0; i < frame.getInvoices().size(); i++) {
                 frame.getInvoices().get(i).setNumber(i + 1);
             }
             frame.getInvoicesTableModel().fireTableDataChanged();
@@ -252,8 +253,8 @@ public class InvoiceController implements ActionListener, ListSelectionListener 
             InvoiceLine_TableModel lineTableModel = (InvoiceLine_TableModel) frame.getLineTable().getModel();
             lineTableModel.fireTableDataChanged();
             frame.getInvoicesTableModel().fireTableDataChanged();
-            
-            frame.getInvoiceTotalValue().setText(""+invoice.getInvoiceTotal());
+
+            frame.getInvoiceTotalValue().setText("" + invoice.getInvoiceTotal());
         }
 
         lineDialog.setVisible(false);
@@ -265,6 +266,22 @@ public class InvoiceController implements ActionListener, ListSelectionListener 
         lineDialog.setVisible(false);
         lineDialog.dispose();
         lineDialog = null;
+    }
+
+    // To print data read from files on console
+    private void printOnConsole() {
+        for (int i = 0; i < frame.getInvoices().size(); i++) {
+            System.out.println("Invoice Number: " + frame.getInvoices().get(i).getNumber());
+            System.out.println("Invoice Date: " + frame.getInvoices().get(i).getDate());
+            System.out.println("Customer Name: " + frame.getInvoices().get(i).getCustomerName());
+            System.out.println("Items: ");
+            for (int j = 0; j < frame.getInvoices().get(i).getLines().size(); j++) {
+                System.out.println(frame.getInvoices().get(i).getLines().get(j).getItem() + ", " + frame.getInvoices().get(i).getLines().get(j).getPrice() + ", "
+                        + frame.getInvoices().get(i).getLines().get(j).getCount());
+            }
+
+            System.out.println("---------------------------------------------");
+        }
     }
 
 }
